@@ -4,12 +4,18 @@ const Airswap = require("./airswap");
 const db = require("./db");
 const express = require("express");
 const fetch = require("node-fetch");
+const cors = require("cors");
 const app = new express();
 const airswap = new Airswap();
 
 const { INFURA, ETHERSCAN } = process.env;
 const ropsten = `wss://rinkeby.infura.io/ws/v3/${INFURA}`;
 const provider = new ethers.providers.WebSocketProvider(ropsten, "ropsten");
+
+let latest = {
+  block: 0,
+  price: 0,
+};
 
 provider.on("block", (number) => {
   airswap.getPrice((err, results) => {
@@ -20,12 +26,36 @@ provider.on("block", (number) => {
         results.senderAmount / 1e18
       }`
     );
+    console.log(number, results.senderAmount);
     db.put(number, results.senderAmount);
+    latest = {
+      block: number,
+      price: results.senderAmount,
+    };
   });
 });
 
+app.use(cors());
+
 app.listen(4000, () => {
   console.log("listening on 4k");
+});
+
+app.get("/price/latest", async (req, res) => {
+  return res.status(200).send(latest);
+});
+
+app.get("/price/block/:block", async (req, res) => {
+  let price;
+  const { block } = req.params;
+
+  try {
+    price = await db.get(block);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).send();
+  }
+  return res.status(200).send({ block: price });
 });
 
 app.get("/transactions/:address", async (req, res) => {
