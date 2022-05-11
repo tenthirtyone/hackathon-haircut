@@ -55,7 +55,7 @@ app.get("/price/block/:block", async (req, res) => {
     console.log(e);
     return res.status(404).send();
   }
-  return res.status(200).send({ block: price });
+  return res.status(200).send({ block, price });
 });
 
 app.get("/transactions/:address", async (req, res) => {
