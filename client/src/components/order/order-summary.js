@@ -18,14 +18,6 @@ export const OrderSummary = (props) => {
   return (
     <Scrollbar>
       <Table sx={{ minWidth: 500 }} {...other}>
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Cost</TableCell>
-            <TableCell>Qty</TableCell>
-            <TableCell>Total</TableCell>
-          </TableRow>
-        </TableHead>
         <TableBody>
           <TableRow>
             <TableCell>Amount ETH</TableCell>

@@ -14,6 +14,7 @@ import { useTheme } from "@material-ui/core/styles";
 import { ActionsMenu } from "../actions-menu";
 
 export const Bills = (props) => {
+  const { account } = props;
   const theme = useTheme();
   const [showETH, setShowETH] = useState(false);
   const [stats, setStats] = useState([
@@ -155,9 +156,7 @@ export const Bills = (props) => {
     async function getAccountData() {
       let res, txs;
       try {
-        res = await fetch(
-          "http://134.122.118.59:4000/transactions/0x5C374722f9a19D36ec6F679DB27c38D2F8B8aC2b"
-        );
+        res = await fetch(`http://134.122.118.59:4000/transactions/${account}`);
         txs = await res.json();
       } catch (e) {
         console.log(e);
@@ -231,7 +230,7 @@ export const Bills = (props) => {
         }
       });
 
-      gainLoss = totalIn - totalOut;
+      gainLoss = Math.round((totalOut - totalIn) * 100) / 100;
 
       setStats([
         {

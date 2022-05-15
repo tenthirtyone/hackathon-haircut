@@ -44,7 +44,7 @@ export const OrderPreviewItem = (props) => {
   const statusVariant = statusVariants.find(
     (variant) => variant.value === order.status
   );
-  console.log(order);
+
   const handleExpandedChange = () => {
     setExpanded((prev) => !prev);
   };

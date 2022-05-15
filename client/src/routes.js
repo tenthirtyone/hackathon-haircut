@@ -11,7 +11,7 @@ import { MainLayout } from "./containers/main-layout";
 import { Organization } from "./containers/organization";
 import { Product } from "./containers/product";
 import { Reports } from "./containers/reports";
-
+import { EthereumData } from "./components/ethereum-data";
 const Loadable = (Component) => (props) =>
   (
     <Suspense fallback={<LoadingScreen />}>
@@ -315,6 +315,16 @@ const routes = [
           {
             path: "/",
             element: <ReportsOverview />,
+          },
+        ],
+      },
+      {
+        path: "networks",
+        element: null,
+        children: [
+          {
+            path: "/ethereum",
+            element: <EthereumData />,
           },
         ],
       },

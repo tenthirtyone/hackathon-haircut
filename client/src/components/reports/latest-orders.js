@@ -59,7 +59,6 @@ export const LatestOrders = (props) => {
         console.log(e);
       }
 
-      console.log(txs);
       txs = txs.map((tx) => {
         return {
           ...tx,
