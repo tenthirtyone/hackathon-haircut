@@ -26,10 +26,6 @@ const items = [
         href: "/dashboard/reports",
         title: "Overview",
       },
-      {
-        href: "/dashboard/reports/sales",
-        title: "Sales",
-      },
     ],
   },
 

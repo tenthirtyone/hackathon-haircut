@@ -316,10 +316,6 @@ const routes = [
             path: "/",
             element: <ReportsOverview />,
           },
-          {
-            path: "sales",
-            element: <ReportsSales />,
-          },
         ],
       },
       {

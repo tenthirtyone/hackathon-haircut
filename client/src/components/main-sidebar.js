@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { useState, useEffect } from "react";
+import { Link as RouterLink, useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 import {
   Box,
   Button,
@@ -9,134 +9,130 @@ import {
   IconButton,
   List,
   ListSubheader,
-  Typography
-} from '@material-ui/core';
-import { DeviasChevronDown as ChevronDownIcon } from '../icons/devias-chevron-down';
-import { DeviasChevronRight as ChevronRightIcon } from '../icons/devias-chevron-right';
-import { X as XICon } from '../icons/x';
-import { lightNeutral } from '../colors';
-import { MainSidebarLink } from './main-sidebar-link';
+  Typography,
+} from "@material-ui/core";
+import { DeviasChevronDown as ChevronDownIcon } from "../icons/devias-chevron-down";
+import { DeviasChevronRight as ChevronRightIcon } from "../icons/devias-chevron-right";
+import { X as XICon } from "../icons/x";
+import { lightNeutral } from "../colors";
+import { MainSidebarLink } from "./main-sidebar-link";
 
 const sections = [
   {
-    title: 'Products',
+    title: "Products",
     items: [
       {
-        title: 'List',
-        href: '/dashboard/products'
+        title: "List",
+        href: "/dashboard/products",
       },
       {
-        title: 'Summary',
-        href: '/dashboard/products/1'
+        title: "Summary",
+        href: "/dashboard/products/1",
       },
       {
-        title: 'Inventory',
-        href: '/dashboard/products/1/inventory'
+        title: "Inventory",
+        href: "/dashboard/products/1/inventory",
       },
       {
-        title: 'Insights',
-        href: '/dashboard/products/1/analytics'
-      }
-    ]
+        title: "Insights",
+        href: "/dashboard/products/1/analytics",
+      },
+    ],
   },
   {
-    title: 'Orders',
+    title: "Orders",
     items: [
       {
-        title: 'List',
-        href: '/dashboard/orders'
+        title: "List",
+        href: "/dashboard/orders",
       },
       {
-        title: 'Summary',
-        href: '/dashboard/orders/1'
-      }
-    ]
+        title: "Summary",
+        href: "/dashboard/orders/1",
+      },
+    ],
   },
   {
-    title: 'Customers',
+    title: "Customers",
     items: [
       {
-        title: 'List',
-        href: '/dashboard/customers'
+        title: "List",
+        href: "/dashboard/customers",
       },
       {
-        title: 'Summary',
-        href: '/dashboard/customers/1'
+        title: "Summary",
+        href: "/dashboard/customers/1",
       },
       {
-        title: 'Orders',
-        href: '/dashboard/customers/1/orders'
+        title: "Orders",
+        href: "/dashboard/customers/1/orders",
       },
       {
-        title: 'Activity',
-        href: '/dashboard/customers/1/orders'
-      }
-    ]
+        title: "Activity",
+        href: "/dashboard/customers/1/orders",
+      },
+    ],
   },
   {
-    title: 'Invoices',
+    title: "Invoices",
     items: [
       {
-        title: 'List',
-        href: '/dashboard/invoices'
+        title: "List",
+        href: "/dashboard/invoices",
       },
       {
-        title: 'Create',
-        href: '/dashboard/invoices/create'
+        title: "Create",
+        href: "/dashboard/invoices/create",
       },
       {
-        title: 'Details',
-        href: '/dashboard/invoices/1'
+        title: "Details",
+        href: "/dashboard/invoices/1",
       },
       {
-        title: 'Preview',
-        href: '/dashboard/invoices/1/preview'
-      }
-    ]
+        title: "Preview",
+        href: "/dashboard/invoices/1/preview",
+      },
+    ],
   },
   {
-    title: 'Dashboards',
+    title: "Dashboards",
     items: [
       {
-        title: 'Overview',
-        href: '/dashboard'
+        title: "Overview",
+        href: "/dashboard",
       },
-      {
-        title: 'Reports',
-        href: '/dashboard/sales'
-      }
-    ]
+    ],
   },
   {
-    title: 'Account',
+    title: "Account",
     items: [
       {
-        title: 'General',
-        href: '/dashboard/account'
+        title: "General",
+        href: "/dashboard/account",
       },
       {
-        title: 'Notifications',
-        href: '/dashboard/account/notifications'
-      }
-    ]
+        title: "Notifications",
+        href: "/dashboard/account/notifications",
+      },
+    ],
   },
   {
-    title: 'Organization',
+    title: "Organization",
     items: [
       {
-        title: 'General',
-        href: '/dashboard/organization'
+        title: "General",
+        href: "/dashboard/organization",
       },
       {
-        title: 'Team',
-        href: '/dashboard/organization/team'
+        title: "Team",
+        href: "/dashboard/organization/team",
       },
       {
-        title: 'Billing',
-        href: '/dashboard/organization/billing'
-      }
-    ]
-  }
+        title: "Billing",
+        href: "/dashboard/organization/billing",
+      },
+    ],
+  },
 ];
 
 const MainSidebarSection = (props) => {
@@ -153,10 +149,10 @@ const MainSidebarSection = (props) => {
         <Button
           color="inherit"
           sx={{
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            display: 'flex',
-            width: '100%'
+            alignItems: "center",
+            justifyContent: "space-between",
+            display: "flex",
+            width: "100%",
           }}
           variant="text"
           onClick={handleClick}
@@ -165,15 +161,8 @@ const MainSidebarSection = (props) => {
           {open ? <ChevronDownIcon /> : <ChevronRightIcon />}
         </Button>
       </li>
-      <Collapse
-        in={open}
-        timeout="auto"
-        unmountOnExit
-      >
-        <List
-          disablePadding
-          sx={{ color: 'neutral.500' }}
-        >
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List disablePadding sx={{ color: "neutral.500" }}>
           {section.items.map((item) => (
             <MainSidebarLink
               key={item.title}
@@ -190,7 +179,7 @@ const MainSidebarSection = (props) => {
 };
 
 MainSidebarSection.propTypes = {
-  section: PropTypes.object.isRequired
+  section: PropTypes.object.isRequired,
 };
 
 export const MainSidebar = (props) => {
@@ -212,52 +201,42 @@ export const MainSidebar = (props) => {
       PaperProps={{
         sx: {
           backgroundColor: lightNeutral[900],
-          color: 'primary.contrastText',
-          width: 256
-        }
+          color: "primary.contrastText",
+          width: 256,
+        },
       }}
     >
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
+          display: "flex",
+          justifyContent: "flex-end",
           pt: 2,
-          px: 3
+          px: 3,
         }}
       >
-        <IconButton
-          onClick={onClose}
-          sx={{ color: '#ffffff' }}
-        >
+        <IconButton onClick={onClose} sx={{ color: "#ffffff" }}>
           <XICon />
         </IconButton>
       </Box>
       <Box
         sx={{
-          alignItems: 'flex-start',
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-          p: 2
+          alignItems: "flex-start",
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+          p: 2,
         }}
       >
-        <List sx={{ width: '100%' }}>
+        <List sx={{ width: "100%" }}>
           <MainSidebarLink
             component={RouterLink}
             to="/dashboard"
             label="Live Demo"
           />
-          <MainSidebarLink
-            component={RouterLink}
-            to="/docs"
-            label="Docs"
-          />
+          <MainSidebarLink component={RouterLink} to="/docs" label="Docs" />
           <List
-            subheader={(
-              <ListSubheader
-                disableGutters
-                disableSticky
-              >
+            subheader={
+              <ListSubheader disableGutters disableSticky>
                 <Typography
                   color="textSecondary"
                   variant="overline"
@@ -266,14 +245,11 @@ export const MainSidebar = (props) => {
                   Pages
                 </Typography>
               </ListSubheader>
-            )}
-            sx={{ width: '100%' }}
+            }
+            sx={{ width: "100%" }}
           >
             {sections.map((section) => (
-              <MainSidebarSection
-                section={section}
-                key={section.title}
-              />
+              <MainSidebarSection section={section} key={section.title} />
             ))}
           </List>
         </List>
@@ -284,5 +260,5 @@ export const MainSidebar = (props) => {
 
 MainSidebar.propTypes = {
   onClose: PropTypes.func,
-  open: PropTypes.bool
+  open: PropTypes.bool,
 };
