@@ -1,14 +1,14 @@
-import { Box, Container, Link, Typography } from '@material-ui/core';
+import { Box, Container, Link, Typography } from "@material-ui/core";
 
 const links = [
   {
-    label: 'About Us',
-    href: 'https://devias.io/about-us'
+    label: "About Us",
+    href: "https://devias.io/about-us",
   },
   {
-    label: 'Terms',
-    href: 'https://devias.io/legal/tos'
-  }
+    label: "Terms",
+    href: "https://devias.io/legal/tos",
+  },
 ];
 
 export const Footer = () => (
@@ -16,45 +16,28 @@ export const Footer = () => (
     <Container
       maxWidth="lg"
       sx={{
-        display: 'flex',
+        display: "flex",
         flexDirection: {
-          sm: 'row',
-          xs: 'column'
+          sm: "row",
+          xs: "column",
         },
         py: 3,
-        '& a': {
+        "& a": {
           mt: {
             sm: 0,
-            xs: 1
+            xs: 1,
           },
-          '&:not(:last-child)': {
+          "&:not(:last-child)": {
             mr: {
               sm: 5,
-              xs: 0
-            }
-          }
-        }
+              xs: 0,
+            },
+          },
+        },
       }}
     >
-      <Typography
-        color="textSecondary"
-        variant="caption"
-      >
-        © 2021 Devias
-      </Typography>
+      <Typography color="textSecondary" variant="caption"></Typography>
       <Box sx={{ flexGrow: 1 }} />
-      {links.map((link) => (
-        <Link
-          color="textSecondary"
-          href={link.href}
-          key={link.label}
-          target="_blank"
-          underline="none"
-          variant="body2"
-        >
-          {link.label}
-        </Link>
-      ))}
     </Container>
   </div>
 );

@@ -7,32 +7,33 @@ import {
   CardHeader,
   Divider,
   Grid,
+  Switch,
   Typography,
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import { ActionsMenu } from "../actions-menu";
 
-const stats = [
-  {
-    content: "$191.02",
-    label: "Draft",
-  },
-  {
-    content: "$320.50",
-    label: "Awaiting delivery",
-  },
-  {
-    content: "$3,800.00",
-    label: "Due",
-  },
-  {
-    content: "$3,500.00",
-    label: "Overdue",
-  },
-];
-
 export const Bills = (props) => {
   const theme = useTheme();
+  const [showETH, setShowETH] = useState(false);
+  const [stats, setStats] = useState([
+    {
+      content: "0",
+      label: "Total Txs",
+    },
+    {
+      content: "0",
+      label: "Total In",
+    },
+    {
+      content: "0",
+      label: "Total Out",
+    },
+    {
+      content: "0",
+      label: "Gain / Loss",
+    },
+  ]);
   const [range, setRange] = useState("Last 7 days");
   const [data, setData] = useState({
     series: [
@@ -171,18 +172,33 @@ export const Bills = (props) => {
             "0x5C374722f9a19D36ec6F679DB27c38D2F8B8aC2b".toLowerCase(),
         };
       });
-      console.log(txs);
+
+      txs = txs.filter((tx) => {
+        return tx.price !== 0;
+      });
       setData({
         series: [
           {
             data: txs.map((tx) => {
-              if (tx.txIn === true) return Math.round(tx.value * tx.price);
+              if (tx.txIn === true) {
+                if (showETH) {
+                  return tx.value;
+                } else {
+                  return Math.round(tx.value * tx.price * 100) / 100;
+                }
+              }
             }),
             name: "Incoming Transactions",
           },
           {
             data: txs.map((tx) => {
-              if (tx.txIn === false) return Math.round(tx.value * tx.price);
+              if (tx.txIn === false) {
+                if (showETH) {
+                  return tx.value;
+                } else {
+                  return Math.round(tx.value * tx.price * 100) / 100;
+                }
+              }
             }),
             name: "Outgoing Transactions",
           },
@@ -191,9 +207,53 @@ export const Bills = (props) => {
           return tx.block;
         }),
       });
+
+      let totalTx = 0,
+        totalIn = 0,
+        totalOut = 0,
+        gainLoss = 0;
+
+      txs.forEach((tx) => {
+        totalTx++;
+
+        if (tx.txIn === true) {
+          if (showETH) {
+            totalIn += tx.value;
+          } else {
+            totalIn += Math.round(tx.value * tx.price * 100) / 100;
+          }
+        } else {
+          if (showETH) {
+            totalOut += tx.value;
+          } else {
+            totalOut += Math.round(tx.value * tx.price * 100) / 100;
+          }
+        }
+      });
+
+      gainLoss = totalIn - totalOut;
+
+      setStats([
+        {
+          content: totalTx,
+          label: "Total Txs",
+        },
+        {
+          content: totalIn,
+          label: "Total In",
+        },
+        {
+          content: totalOut,
+          label: "Total Out",
+        },
+        {
+          content: gainLoss,
+          label: "Gain / Loss",
+        },
+      ]);
     }
     getAccountData();
-  }, []);
+  }, [showETH]);
 
   return (
     <Card variant="outlined" {...props}>
@@ -237,6 +297,13 @@ export const Bills = (props) => {
           series={data.series}
           type="bar"
         />
+        <Switch
+          checked={showETH}
+          onChange={() => {
+            setShowETH(!showETH);
+          }}
+        />{" "}
+        USD / ETH
       </CardContent>
     </Card>
   );
