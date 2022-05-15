@@ -1,70 +1,82 @@
-import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import toast from 'react-hot-toast';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { AppBar, Box, Button, Divider, IconButton, Toolbar } from '@material-ui/core';
-import { ChevronDown as ChevronDownIcon } from '../icons/chevron-down';
-import { useSettings } from '../contexts/settings-context';
-import { Moon as MoonIcon } from '../icons/moon';
-import { Sun as SunIcon } from '../icons/sun';
-import { AccountPopover } from './account-popover';
-import { OrganizationPopover } from './organization-popover';
-import { Logo } from './logo';
-import { DashboardNavbarMenu } from './dashboard-navbar-menu';
-import { NotificationsPopover } from './notifications-popover';
-import { LanguagePopover } from './laguage-popover';
-
+import { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import {
+  AppBar,
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  Toolbar,
+} from "@material-ui/core";
+import { ChevronDown as ChevronDownIcon } from "../icons/chevron-down";
+import { useSettings } from "../contexts/settings-context";
+import { Moon as MoonIcon } from "../icons/moon";
+import { Sun as SunIcon } from "../icons/sun";
+import { AccountPopover } from "./account-popover";
+import { OrganizationPopover } from "./organization-popover";
+import { Logo } from "./logo";
+import { DashboardNavbarMenu } from "./dashboard-navbar-menu";
+import { NotificationsPopover } from "./notifications-popover";
+import { LanguagePopover } from "./laguage-popover";
+import icon from "./icon.svg";
 const organizations = [
   {
-    id: '6039124832',
-    name: 'ACME LTD.'
+    id: "6039124832",
+    name: "ACME LTD.",
   },
   {
-    id: '3828312374',
-    name: 'Division LTD.'
-  }
+    id: "3828312374",
+    name: "Division LTD.",
+  },
 ];
 
 export const DashboardNavbar = () => {
-  const mdDown = useMediaQuery((theme) => theme.breakpoints.down('md'));
+  const mdDown = useMediaQuery((theme) => theme.breakpoints.down("md"));
   const { i18n, t } = useTranslation();
   const { settings, saveSettings } = useSettings();
   const [openMenu, setOpenMenu] = useState(false);
-  const [darkMode, setDarkMode] = useState(settings.theme === 'dark');
-  const [rtlDirection, setRtlDirection] = useState(settings.direction === 'rtl');
-  const [currentOrganization, setCurrentOrganization] = useState(organizations[0]);
+  const [darkMode, setDarkMode] = useState(settings.theme === "dark");
+  const [rtlDirection, setRtlDirection] = useState(
+    settings.direction === "rtl"
+  );
+  const [currentOrganization, setCurrentOrganization] = useState(
+    organizations[0]
+  );
 
   const handleLanguageChange = (language) => {
     i18n.changeLanguage(language);
     saveSettings({
       ...settings,
-      language
+      language,
     });
-    toast.success(t('Language changed'));
+    toast.success(t("Language changed"));
   };
 
   const handleSwitchTheme = () => {
     saveSettings({
       ...settings,
-      theme: settings.theme === 'light' ? 'dark' : 'light'
+      theme: settings.theme === "light" ? "dark" : "light",
     });
 
-    setDarkMode(settings.theme === 'light');
+    setDarkMode(settings.theme === "light");
   };
 
   const handleSwitchDirection = () => {
     saveSettings({
       ...settings,
-      direction: settings.direction === 'ltr' ? 'rtl' : 'ltr'
+      direction: settings.direction === "ltr" ? "rtl" : "ltr",
     });
 
-    setRtlDirection(settings.direction === 'rtl');
+    setRtlDirection(settings.direction === "rtl");
   };
 
   const handleOrganizationChange = (organizationId) => {
-    const newOrganization = organizations.find((organization) => organization.id
-      === organizationId);
+    const newOrganization = organizations.find(
+      (organization) => organization.id === organizationId
+    );
 
     if (!newOrganization) {
       return;
@@ -74,117 +86,80 @@ export const DashboardNavbar = () => {
   };
 
   return (
-    <AppBar
-      elevation={0}
-      sx={{ backgroundColor: '#1e212a' }}
-    >
+    <AppBar elevation={0} sx={{ backgroundColor: "#1e212a" }}>
       <Toolbar
         disableGutters
         sx={{
-          alignItems: 'center',
-          display: 'flex',
+          alignItems: "center",
+          display: "flex",
           minHeight: 64,
           px: 3,
-          py: 1
+          py: 1,
         }}
       >
         <Box
           component={RouterLink}
           to="/"
           sx={{
-            alignItems: 'center',
-            display: 'flex',
-            justifyContent: 'center'
+            alignItems: "center",
+            display: "flex",
+            justifyContent: "center",
           }}
         >
-          <Logo
-            emblemOnly
-            variant="light"
-          />
+          <img src={icon} />
         </Box>
         <Divider
           flexItem
           orientation="vertical"
           sx={{
-            borderColor: 'rgba(255,255,255,0.1)',
-            mx: 3
+            borderColor: "rgba(255,255,255,0.1)",
+            mx: 3,
           }}
         />
-        <OrganizationPopover
-          currentOrganization={currentOrganization}
-          onOrganizationChange={handleOrganizationChange}
-          organizations={organizations}
-          sx={{
-            display: {
-              md: 'flex',
-              xs: 'none'
-            }
-          }}
-        />
+
         <DashboardNavbarMenu
           onClose={() => setOpenMenu(false)}
           open={mdDown && openMenu}
         />
         <Button
-          endIcon={(
+          endIcon={
             <ChevronDownIcon
               fontSize="small"
               sx={{
                 ml: 2,
-                transition: 'transform 250ms',
-                transform: openMenu ? 'rotate(180deg)' : 'none'
+                transition: "transform 250ms",
+                transform: openMenu ? "rotate(180deg)" : "none",
               }}
             />
-          )}
+          }
           onClick={() => setOpenMenu(true)}
           sx={{
-            color: 'primary.contrastText',
+            color: "primary.contrastText",
             display: {
-              md: 'none',
-              xs: 'flex'
-            }
+              md: "none",
+              xs: "flex",
+            },
           }}
           variant="text"
         >
           Menu
         </Button>
         <Box sx={{ flexGrow: 1 }} />
-        <LanguagePopover
-          language={i18n.language}
-          onLanguageChange={handleLanguageChange}
-          sx={{
-            display: {
-              md: 'inline-flex',
-              xs: 'none'
-            }
-          }}
-        />
+
         <IconButton
           color="inherit"
           onClick={handleSwitchTheme}
           sx={{
             mx: 2,
             display: {
-              md: 'inline-flex',
-              xs: 'none'
-            }
+              md: "inline-flex",
+              xs: "none",
+            },
           }}
         >
-          {darkMode
-            ? <SunIcon />
-            : <MoonIcon />}
+          {darkMode ? <SunIcon /> : <MoonIcon />}
         </IconButton>
         <NotificationsPopover sx={{ mr: 2 }} />
-        <AccountPopover
-          currentOrganization={currentOrganization}
-          darkMode={darkMode}
-          onLanguageChange={handleLanguageChange}
-          onOrganizationChange={handleOrganizationChange}
-          onSwitchDirection={handleSwitchDirection}
-          onSwitchTheme={handleSwitchTheme}
-          organizations={organizations}
-          rtlDirection={rtlDirection}
-        />
       </Toolbar>
     </AppBar>
   );

@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 export const Logo = (props) => {
   const { emblemOnly, variant } = props;
 
-  const color = variant === 'light' ? '#ffffff' : '#1D262D';
+  const color = variant === "light" ? "#ffffff" : "#1D262D";
 
   return (
     <svg
       width={emblemOnly ? 24 : 95}
-      viewBox={emblemOnly ? '0 0 24 24' : '0 0 95 24'}
+      viewBox={emblemOnly ? "0 0 24 24" : "0 0 95 24"}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -55,10 +55,10 @@ export const Logo = (props) => {
 
 Logo.defaultProps = {
   emblemOnly: false,
-  variant: 'dark'
+  variant: "dark",
 };
 
 Logo.propTypes = {
   emblemOnly: PropTypes.bool,
-  variant: PropTypes.oneOf(['light', 'dark'])
+  variant: PropTypes.oneOf(["light", "dark"]),
 };

@@ -1,29 +1,26 @@
-import PropTypes from 'prop-types';
-import { Link as RouterLink } from 'react-router-dom';
-import { Button, Card, CardHeader, Divider } from '@material-ui/core';
-import { OrderPreviewItem } from '../order/order-preview-item';
-import { OrderPreviewList } from '../order/order-preview-list';
+import PropTypes from "prop-types";
+import { Link as RouterLink } from "react-router-dom";
+import { Button, Card, CardHeader, Divider } from "@material-ui/core";
+import { OrderPreviewItem } from "../order/order-preview-item";
+import { OrderPreviewList } from "../order/order-preview-list";
 
 export const LatestOrders = (props) => {
   const { orders } = props;
 
   return (
-    <Card
-      variant="outlined"
-      {...props}
-    >
+    <Card variant="outlined" {...props}>
       <CardHeader
-        action={(
+        action={
           <Button
             color="primary"
             component={RouterLink}
             to="/dashboard/orders"
             variant="text"
           >
-            Go to orders
+            Export Transactions
           </Button>
-        )}
-        title="Latest Orders"
+        }
+        title="Transaction History"
       />
       <Divider />
       <OrderPreviewList>
@@ -40,5 +37,5 @@ export const LatestOrders = (props) => {
 };
 
 LatestOrders.propTypes = {
-  orders: PropTypes.array
+  orders: PropTypes.array,
 };
