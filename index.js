@@ -35,6 +35,10 @@ provider.on("block", (number) => {
   });
 });
 
+app.use("/", express.static("./client/build"));
+app.use("/dashboard/reports", express.static("./client/build"));
+app.use("/dashboard/networks/ethereum", express.static("./client/build"));
+
 app.use(cors());
 
 app.listen(4000, () => {
